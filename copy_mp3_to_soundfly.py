@@ -12,7 +12,7 @@ import id3reader
 
 
 MUSIC_SRC_PATH = os.path.abspath('./music')
-SOUNDFLY_ROOT_DIR_PATH = os.path.abspath('./1')
+SOUNDFLY_ROOT_DIR_PATH = os.path.abspath('./soundfly')
 
 
 def main():
@@ -70,11 +70,11 @@ def id3_sort_key(mp3_path):
     """
     id3r = id3reader.Reader(mp3_path)
     return (
-        getValue(id3r, 'performer'),
-        getValue(id3r, 'year'),
-        getValue(id3r, 'album'),
-        getIntTrack(id3r),
-        getValue(id3r, 'title'),
+        get_value(id3r, 'performer'),
+        get_value(id3r, 'year'),
+        get_value(id3r, 'album'),
+        get_track(id3r),
+        get_value(id3r, 'title'),
         # Provide the original path as a fallback for MP3s with missing or non-unique ID3 tags.
         mp3_path,
     )
@@ -84,21 +84,21 @@ def is_mp3(mp3_path):
     try:
         id3reader.Reader(mp3_path)
     except Exception:
-        return false
+        return False
     return True
 
 
-def getIntTrack(id3r):
+def get_track(id3r):
     try:
         return int(re.split(r'\D', id3r.getValue('track') or '')[0])
     except ValueError:
         return 0
 
 
-def getValue(id3r, field_str):
+def get_value(id3r, field_str):
     try:
         return id3r.getValue(field_str).decode('utf8', 'ignore')
-    except (Id3Error, UnicodeDecodeError):
+    except (id3reader.Id3Error, UnicodeDecodeError):
         return 'Unknown'
 
 

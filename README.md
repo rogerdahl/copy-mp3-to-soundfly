@@ -18,7 +18,7 @@ This is a small script which attempts to cause the SoundFly to play songs in alb
 
 `source` is a directory which contains MP3s that will be copied to the SoundFly, and `destination` is the mounted directory of a SoundFly that is directly connected via USB, a USB memory stick or an SD card that will be used with the SoundFly.    
 
-The script will delete all existing files and folders in the destination and copy MP3 files from the source to the destination in such a way that they (hopefully) are played back in album order.
+**Important:** The script will delete all existing files and folders in the destination, so make sure to specify the correct destination, or important files may be lost. Make sure that there's nothing on the SoundFly that you want to keep.
 
 The script recursively scans the source and any subdirectories for MP3s to copy. Processing is based on the Artist, Year, Album and Track ID3 tags and as long as these are present and correct, the structure of any subdirectories, the directory names and MP3 file names in the source are all irrelevant to the end result. However, if ID3 tags are missing or incorrect in such a way that some MP3s would share the same sort key, the script falls back to sorting the involved MP3s by their locations and file names in the source.     
 
@@ -27,14 +27,6 @@ It is necessary for the script to delete all directories and files in the destin
 It is up to the user to make sure that all MP3s in the source will fit in the destination. If necessary, create a new source directory and copy only as many MP3s as will fit there.
 
 To add or delete MP3 files in SoundFly, make the desired changes in the source then rerun the script. The full procedure is then performed, deleting all the files in the destination and copying the MP3 files.
-
-##### Important
-
-<aside class="warning">
-
-The script starts by deleting everything in the destination, so make sure to specify the correct destination, or important files may be lost. Make sure that there's nothing on the SoundFly that you want to keep.
-
-</aside>    
 
 #### Implementation
 
